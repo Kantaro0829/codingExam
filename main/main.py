@@ -145,6 +145,7 @@ def print_final_result(list):
 def main():
     """
     CLIから引数を受取 -> CSVからリストへ -> リストからUserIdをKEY値としたスコア合計値とプレイ回数を
+    それぞれ辞書型で記録 -> 
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("filepath")
