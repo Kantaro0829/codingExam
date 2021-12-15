@@ -35,5 +35,5 @@ jobs:
           echo current directry
           python --version
           pip install flake8
-          flake ./main/main.py
+          flake8 ./main/main.py
           
