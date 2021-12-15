@@ -1,6 +1,6 @@
 import csv
-from pathlib import Path
 import argparse
+
 
 def csv_to_list(filepath):
     result_list = []
@@ -17,16 +17,18 @@ def csv_to_list(filepath):
 
     return result_list
 
-def is_id_existed(id, id_list):
+
+def is_existing_id(id, id_list):
     """
     すでに処理したことのあるIDか判別する
     """
-    isExisting = False
+    is_existing = False
     for i in id_list:
         if id == i:
-            isExisting = True
+            is_existing = True
 
-    return isExisting
+    return is_existing
+
 
 def list_to_dict_by_id(list):
     """
@@ -40,12 +42,12 @@ def list_to_dict_by_id(list):
 
     for i in list:
         if ids:
-            if is_id_existed(i[0], ids):
+            if is_existing_id(i[0], ids):
 
                 count_dic_by_id[i[0]] += 1
                 dic_by_id[i[0]] = int(dic_by_id[i[0]]) + int(i[1])
 
-            if not is_id_existed(i[0], ids):
+            if not is_existing_id(i[0], ids):
 
                 ids.append(i[0])  # 新規のIDを処理済みとして保存
                 dic_by_id[i[0]] = int(i[1])
@@ -59,6 +61,7 @@ def list_to_dict_by_id(list):
 
     return dic_by_id, count_dic_by_id
 
+
 def avg_of_each_player(count_dic, score_dic):
     """
     各プレイヤーの平均値を求める
@@ -68,6 +71,7 @@ def avg_of_each_player(count_dic, score_dic):
         avg_dic_by_id[k] = int(v / count_dic[k])
 
     return avg_dic_by_id
+
 
 def ranking(list):
     """
@@ -83,7 +87,7 @@ def ranking(list):
     for index, row in enumerate(list):
         temp_array = []
 
-        if privious_score == row[1] and not multiple_same_rank:  
+        if privious_score == row[1] and not multiple_same_rank:
             # 同じスコアが2連続のとき
             multiple_same_rank = True
             privious_rank = amount_of_player
@@ -92,7 +96,7 @@ def ranking(list):
             temp_array.append(row[1])
             amount_of_player += 1
 
-        elif privious_score == row[1] and multiple_same_rank:  
+        elif privious_score == row[1] and multiple_same_rank:
             # 同じスコアが3連続以上のとき
             multiple_same_rank = True
             temp_array.append(privious_rank)
@@ -100,18 +104,18 @@ def ranking(list):
             temp_array.append(row[1])
             amount_of_player += 1
 
-        else: 
+        else:
             # １つ目のスコアと今のスコアが違うとき
             multiple_same_rank = False
             privious_score = row[1]
 
-            if amount_of_player < 10:  
+            if amount_of_player < 10:
                 # ランク１０位以内は記録する
                 amount_of_player = index + 1
                 temp_array.append(amount_of_player)
                 temp_array.append(row[0])
                 temp_array.append(row[1])
-        
+
         if temp_array:
             result_list.append(temp_array)
 
@@ -131,21 +135,21 @@ def ranking(list):
 #         writer = csv.writer(f)
 #         writer.writerows(list)
 
+
 def print_final_result(list):
-    for index, row in enumerate(list):  
+    for index, row in enumerate(list):
         if not index:
             print("rank,player_id,mean_score\n")
-        
-        print(f'{row[0]},{row[1]},{row[2]}\n')
-        
-    pass
 
+        print(f'{row[0]},{row[1]},{row[2]}\n')
+
+    pass
 
 
 def main():
     """
     CLIから引数を受取 -> CSVからリストへ -> リストからUserIdをKEY値としたスコア合計値とプレイ回数を
-    それぞれ辞書型で記録 -> 
+    それぞれ辞書型で記録 -> 各プレイヤの平均スコア取得 -> ソート -> ランク付け
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("filepath")
@@ -154,7 +158,7 @@ def main():
     filename = args.filepath
     list_of_all = csv_to_list(filename)
 
-    score_dic_by_id, count_dic_by_id = list_to_dict_by_id(list_of_all)  
+    score_dic_by_id, count_dic_by_id = list_to_dict_by_id(list_of_all)
 
     result = avg_of_each_player(count_dic_by_id, score_dic_by_id)
 
@@ -164,8 +168,6 @@ def main():
     ranked_list = ranking(sorted_list)
 
     print_final_result(ranked_list)
-    
-    
 
 
 if __name__ == "__main__":
