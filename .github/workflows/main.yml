@@ -31,7 +31,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: code check with flake8
-        run:
+        run: |
           echo current directry
           python --version
           pip install flake8
