@@ -134,9 +134,9 @@ def ranking(list):
 def print_final_result(list):
     for index, row in enumerate(list):  
         if not index:
-            print("rank,player_id,mean_score")
+            print("rank,player_id,mean_score\n")
         
-        print(f'{row[0]},{row[1]},{row[2]}')
+        print(f'{row[0]},{row[1]},{row[2]}\n')
         
     pass
 
