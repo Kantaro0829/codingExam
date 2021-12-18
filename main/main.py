@@ -73,8 +73,6 @@ def avg_of_each_player(count_dic, score_dic):
         avg_dic_by_id[k] = Decimal(str(float(v) / float(count_dic[k]))).\
             quantize(Decimal('0'), rounding=ROUND_HALF_UP)
 
-    print(avg_dic_by_id)
-
     return avg_dic_by_id
 
 
@@ -83,7 +81,6 @@ def ranking(list):
     ランキングをつける関数
     """
     result_list = []
-
     multiple_same_rank = False  # 連続で同じスコアが続いているか判断
     amount_of_player = 0  # ランキング内のプレイヤー合計
     privious_score = 0  # 一つ前に調べたIDのスコア
@@ -110,7 +107,7 @@ def ranking(list):
             amount_of_player += 1
 
         else:
-            # １つ目のスコアと今のスコアが違うとき
+            # 前回のスコアと今のスコアが違うとき
             multiple_same_rank = False
             privious_score = row[1]
 
@@ -142,13 +139,12 @@ def ranking(list):
 
 
 def print_final_result(list):
+
     for index, row in enumerate(list):
         if not index:
             print("rank,player_id,mean_score\n")
 
         print(f'{row[0]},{row[1]},{row[2]}\n')
-
-    pass
 
 
 def main():
