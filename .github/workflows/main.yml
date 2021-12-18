@@ -34,14 +34,12 @@ jobs:
         run: |
           echo current directry
           ls
-
           echo version of python
           python --version
-
           echo install flake8 for checking format of file
           pip install flake8
           flake8 ./main/main.py
-        
+  
       - name: tesing with pytest
         run: |
           echo install pytest for testing
