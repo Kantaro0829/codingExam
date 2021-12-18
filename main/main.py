@@ -1,5 +1,6 @@
 import csv
 import argparse
+from decimal import Decimal, ROUND_HALF_UP
 
 
 def csv_to_list(filepath):
@@ -66,9 +67,13 @@ def avg_of_each_player(count_dic, score_dic):
     """
     各プレイヤーの平均値を求める
     """
+
     avg_dic_by_id = {}
     for k, v in score_dic.items():
-        avg_dic_by_id[k] = int(v / count_dic[k])
+        avg_dic_by_id[k] = Decimal(str(float(v) / float(count_dic[k]))).\
+            quantize(Decimal('0'), rounding=ROUND_HALF_UP)
+
+    print(avg_dic_by_id)
 
     return avg_dic_by_id
 
