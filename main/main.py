@@ -41,8 +41,6 @@ def list_to_dict_by_id(list):
     dic_by_id = {}  # idごとのスコアの合計値
     count_dic_by_id = {}  # idごとのログの個数
 
-    print(list)
-
     for i in list:
         if ids:
             if is_existing_id(i[0], ids):
@@ -61,12 +59,6 @@ def list_to_dict_by_id(list):
             ids.append(i[0])
             dic_by_id[i[0]] = int(i[1])
             count_dic_by_id[i[0]] = 1
-
-    print(dic_by_id)
-
-    print("====================")
-
-    print(count_dic_by_id)
 
     return dic_by_id, count_dic_by_id
 
