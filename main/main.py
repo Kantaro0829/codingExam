@@ -41,6 +41,8 @@ def list_to_dict_by_id(list):
     dic_by_id = {}  # idごとのスコアの合計値
     count_dic_by_id = {}  # idごとのログの個数
 
+    print(list)
+
     for i in list:
         if ids:
             if is_existing_id(i[0], ids):
@@ -57,15 +59,21 @@ def list_to_dict_by_id(list):
         else:
             # 最初だけids(list)に値が存在してないので処理する
             ids.append(i[0])
-            dic_by_id[i[0]] = i[1]
+            dic_by_id[i[0]] = int(i[1])
             count_dic_by_id[i[0]] = 1
+
+    print(dic_by_id)
+
+    print("====================")
+
+    print(count_dic_by_id)
 
     return dic_by_id, count_dic_by_id
 
 
 def avg_of_each_player(count_dic, score_dic):
     """
-    各プレイヤーの平均値を求める
+    各プレイヤーの平均値を求める(四捨五入)
     """
 
     avg_dic_by_id = {}
