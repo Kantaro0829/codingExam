@@ -75,7 +75,6 @@ def avg_of_each_player(count_dic, score_dic):
 
         avg_dic_by_id[k] = Decimal((v / count_dic[k])).\
             quantize(Decimal('0'), rounding=ROUND_HALF_UP)
-        
 
     return avg_dic_by_id
 
