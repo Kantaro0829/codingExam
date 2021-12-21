@@ -7,7 +7,7 @@ def test_is_existing_id():
 
 
 def test_list_to_dict_by_id():
-    list = [
+    input_list = [
         ['1', '15000'],
         ['2', '5000']
     ]
@@ -24,7 +24,7 @@ def test_list_to_dict_by_id():
     l = [dic_by_id, count_dic_by_id]
 
     t = tuple(l)
-    assert list_to_dict_by_id(list) == t
+    assert list_to_dict_by_id(input_list) == t
 
 
 def test_avg_of_each_player():
@@ -48,7 +48,7 @@ def test_avg_of_each_player():
 
 def test_ranking():
 
-    list = [
+    input_list = [
         ('player0001', Decimal('10000')),
         ('player0002', Decimal('10000')),
         ('player0003', Decimal('9000')),
@@ -68,4 +68,4 @@ def test_ranking():
         [7, 'player0007', Decimal('998')]
     ]
 
-    assert ranking(list) == expected_list
+    assert ranking(input_list) == expected_list

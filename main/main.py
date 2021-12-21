@@ -19,19 +19,19 @@ def csv_to_list(filepath):
     return result_list
 
 
-def is_existing_id(id, id_list):
+def is_existing_id(player_id, player_id_list):
     """
     すでに処理したことのあるIDか判別する
     """
     is_existing = False
-    for i in id_list:
-        if id == i:
+    for i in player_id_list:
+        if player_id == i:
             is_existing = True
 
     return is_existing
 
 
-def list_to_dict_by_id(list):
+def list_to_dict_by_id(log_list):
     """
     dic_by_id：idごとのスコアの合計値
     count_dic_by_id：idごとのログの個数
@@ -41,7 +41,7 @@ def list_to_dict_by_id(list):
     dic_by_id = {}  # idごとのスコアの合計値
     count_dic_by_id = {}  # idごとのログの個数
 
-    for i in list:
+    for i in log_list:
         if ids:
             if is_existing_id(i[0], ids):
 
@@ -70,13 +70,17 @@ def avg_of_each_player(count_dic, score_dic):
 
     avg_dic_by_id = {}
     for k, v in score_dic.items():
-        avg_dic_by_id[k] = Decimal(str(float(v) / float(count_dic[k]))).\
+        # avg_dic_by_id[k] = Decimal(str(float(v) / float(count_dic[k]))).\
+        #     quantize(Decimal('0'), rounding=ROUND_HALF_UP)
+
+        avg_dic_by_id[k] = Decimal((v / count_dic[k])).\
             quantize(Decimal('0'), rounding=ROUND_HALF_UP)
+        
 
     return avg_dic_by_id
 
 
-def ranking(list):
+def ranking(sorted_list):
     """
     ランキングをつける関数
     """
@@ -86,7 +90,7 @@ def ranking(list):
     privious_score = 0  # 一つ前に調べたIDのスコア
     privious_rank = 0  # 一つ前に調べたIDのランク
 
-    for index, row in enumerate(list):
+    for index, row in enumerate(sorted_list):
         temp_array = []
 
         if privious_score == row[1] and not multiple_same_rank:

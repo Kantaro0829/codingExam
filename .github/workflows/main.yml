@@ -41,5 +41,5 @@ jobs:
           flake8 ./main/main.py
           echo install pytest for testing
           pip install pytest
-          echo let us test
-          pytest ./tests/test_all.py
+          echo let us test a
+          pytest ./tests/test_all.py -vv
